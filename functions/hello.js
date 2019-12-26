@@ -1,9 +1,15 @@
 import dayjs from 'dayjs'
+import axios from 'axios'
 
 exports.handler = async () => {
-  const date = dayjs().format()
+  const response = await axios.get('https://httpbin.org/get', {
+  	params: {
+   	  date: dayjs().format()
+  	}
+  });
+
   return {
     statusCode: 200,
-    body: date
+    body: JSON.stringify(response.data.args)
   }
 }
